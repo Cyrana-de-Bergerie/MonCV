@@ -1,35 +1,46 @@
 // Language Toggle Script set to English as default
-        let currentLang = 'en';
-        
-        // Prevent any automatic scrolling on page load
-        window.addEventListener('load', function() {
-            window.scrollTo(0, 0);
-        });
-        
-        // Initialize all bilingual content to English on page load
-        // Restore language from localStorage if available
-        if (localStorage.getItem('cv_lang')) {
-            currentLang = localStorage.getItem('cv_lang');
+let currentLang = 'en';
+
+// Restore language from localStorage if available
+if (localStorage.getItem('cv_lang')) {
+    currentLang = localStorage.getItem('cv_lang');
+}
+
+// Immediately set the initial typed-text content based on language, before Typed.js runs
+const typedTextElement = document.querySelector('.typed-text');
+if (typedTextElement) {
+    const initText = currentLang === 'fr' ? typedTextElement.getAttribute('data-fr') : typedTextElement.getAttribute('data-en');
+    typedTextElement.textContent = initText;
+}
+
+// Prevent any automatic scrolling on page load
+window.addEventListener('load', function() {
+    window.scrollTo(0, 0);
+});
+
+// ...existing code...
+document.addEventListener('DOMContentLoaded', function() {
+    // Use restored language, not always English
+    window.scrollTo(0, 0);
+    const elements = document.querySelectorAll('[data-en][data-fr]');
+    elements.forEach(element => {
+        const text = currentLang === 'fr' ? element.getAttribute('data-fr') : element.getAttribute('data-en');
+        if (text && text.trim() !== '') {
+            element.textContent = text;
         }
-        document.addEventListener('DOMContentLoaded', function() {
-            // Use restored language, not always English
-            // currentLang = 'en'; // REMOVE this line to prevent overwriting localStorage value
-            window.scrollTo(0, 0);
-            const elements = document.querySelectorAll('[data-en][data-fr]');
-            elements.forEach(element => {
-                const text = currentLang === 'fr' ? element.getAttribute('data-fr') : element.getAttribute('data-en');
-                if (text && text.trim() !== '') {
-                    element.textContent = text;
-                }
-            });
-            
-            // Force isotope layout recalculation after content is loaded
-            setTimeout(function() {
-                if (window.jQuery && $('.experience-container').data('isotope')) {
-                    $('.experience-container').isotope('layout');
-                }
-            }, 200);
-        });
+    });
+    // In DOMContentLoaded, set the toggle button text correctly based on restored language
+    const langText = document.getElementById('langText');
+    if (langText) {
+        langText.textContent = currentLang === 'en' ? 'Français' : 'English';
+    }
+    // Force isotope layout recalculation after content is loaded
+    setTimeout(function() {
+        if (window.jQuery && $('.experience-container').data('isotope')) {
+            $('.experience-container').isotope('layout');
+        }
+    }, 200);
+});
         
         function toggleLanguage() {
             currentLang = currentLang === 'en' ? 'fr' : 'en';
