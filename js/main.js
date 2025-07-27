@@ -1,9 +1,8 @@
-// Language Toggle Script set to English as default
-let currentLang = 'en';
-
 // Restore language from localStorage if available
 if (localStorage.getItem('cv_lang')) {
     currentLang = localStorage.getItem('cv_lang');
+} else {
+    currentLang = 'en'; // Default to English if no language is set
 }
 
 // Immediately set the initial typed-text content based on language, before Typed.js runs
@@ -18,7 +17,6 @@ window.addEventListener('load', function() {
     window.scrollTo(0, 0);
 });
 
-// ...existing code...
 document.addEventListener('DOMContentLoaded', function() {
     // Use restored language, not always English
     window.scrollTo(0, 0);
@@ -41,194 +39,194 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }, 200);
 });
-        
-        function toggleLanguage() {
-            currentLang = currentLang === 'en' ? 'fr' : 'en';
-                            
-            // Update all elements with data attributes
-            const elements = document.querySelectorAll('[data-en][data-fr]');
-            
-            elements.forEach(element => {
-                const newText = currentLang === 'fr' ? 
-                    element.getAttribute('data-fr') : 
-                    element.getAttribute('data-en');
-                
-                if (newText) {
-                    element.textContent = newText;
-                }
-            });
-            
-            // Update placeholders for form inputs
-            const nameInput = document.getElementById('name');
-            const emailInput = document.getElementById('email');
-            const subjectInput = document.getElementById('subject');
-            const messageInput = document.getElementById('message');
-            
-            if (nameInput) {
-                nameInput.placeholder = currentLang === 'fr' ? 'Votre nom' : 'Your Name';
-            }
-            if (emailInput) {
-                emailInput.placeholder = currentLang === 'fr' ? 'Votre courriel' : 'Your Email';
-            }
-            if (subjectInput) {
-                subjectInput.placeholder = currentLang === 'fr' ? 'Sujet' : 'Subject';
-            }
-            if (messageInput) {
-                messageInput.placeholder = currentLang === 'fr' ? 'Laissez votre message ici' : 'Leave a message here';
-            }
-            if (messageInput) {
-                messageInput.placeholder = currentLang === 'fr' ? document.getElementById('formLang').value = 'FR' : 'EN';
-            }
-            
-            // Handle the typed text by showing it statically instead of animated
-            const typedTextElement = document.querySelector('.typed-text');
-            const typedOutput = document.querySelector('.typed-text-output');
-                            
-            if (typedTextElement && typedOutput) {
-                const frenchText = typedTextElement.getAttribute('data-fr');
-                const englishText = typedTextElement.getAttribute('data-en');
-                
-                const newText = currentLang === 'fr' ? frenchText : englishText;
-                                    
-                // Stop any existing typed animation
-                if (window.typedInstance) {
-                    window.typedInstance.destroy();
-                    window.typedInstance = null;
-                }
-                
-                // Update the hidden text element that Typed.js reads from
-                typedTextElement.textContent = newText;
-                
-                // Restart Typed.js with the new language text
-                if (newText) {
-                    window.typedInstance = new Typed('.typed-text-output', {
-                        strings: newText.split(', '),
-                        typeSpeed: 100,
-                        backSpeed: 20,
-                        smartBackspace: false,
-                        loop: true
-                    });
-                }
-            }
-            
-            // Update the toggle button text
-            const langText = document.getElementById('langText');
-            if (langText) {
-                langText.textContent = currentLang === 'en' ? 'Français' : 'English';
-            }
-            
-            // Update page title
-            document.title = currentLang === 'en' ? 
-                'Manon Dupuis - English Resume' : 
-                'Manon Dupuis - CV Français';
-                
-            // Update HTML lang attribute
-            document.documentElement.lang = currentLang;
-            
-            // Force isotope layout recalculation after language change
-            setTimeout(function() {
-                if (window.jQuery && $('.experience-container').data('isotope')) {
-                    $('.experience-container').isotope('layout');
-                }
-                if (window.jQuery && $('.education-container').data('isotope')) {
-                    $('.education-container').isotope('layout');
-                }
-                if (window.jQuery && $('.community-container').data('isotope')) {
-                    $('.community-container').isotope('layout');
-                }
-            }, 100);
 
-            // At the end of toggleLanguage(), update localStorage
-            localStorage.setItem('cv_lang', currentLang);
+function toggleLanguage() {
+    currentLang = currentLang === 'en' ? 'fr' : 'en';
+
+    // Update all elements with data attributes
+    const elements = document.querySelectorAll('[data-en][data-fr]');
+
+    elements.forEach(element => {
+        const newText = currentLang === 'fr' ?
+            element.getAttribute('data-fr') :
+            element.getAttribute('data-en');
+
+        if (newText) {
+            element.textContent = newText;
         }
-        
-        // Add click functionality to service items
-        document.addEventListener('DOMContentLoaded', function() {
-            const serviceItems = document.querySelectorAll('.clickable-service');
-            const modal = $('#serviceInterestModal'); // Using jQuery for Bootstrap 4
-            const yesBtn = document.getElementById('modalYesBtn');
-            
-            serviceItems.forEach(item => {
-                item.addEventListener('click', function() {
-                    // Show the modal instead of directly scrolling
-                    modal.modal('show');
-                });
-                
-                // Add hover effects
-                item.addEventListener('mouseenter', function() {
-                    this.style.transform = 'translateY(-5px)';
-                    this.style.transition = 'transform 0.3s ease';
-                });
-                
-                item.addEventListener('mouseleave', function() {
-                    this.style.transform = 'translateY(0)';
-                });
+    });
+
+    // Update placeholders for form inputs
+    const nameInput = document.getElementById('name');
+    const emailInput = document.getElementById('email');
+    const subjectInput = document.getElementById('subject');
+    const messageInput = document.getElementById('message');
+
+    if (nameInput) {
+        nameInput.placeholder = currentLang === 'fr' ? 'Votre nom' : 'Your Name';
+    }
+    if (emailInput) {
+        emailInput.placeholder = currentLang === 'fr' ? 'Votre courriel' : 'Your Email';
+    }
+    if (subjectInput) {
+        subjectInput.placeholder = currentLang === 'fr' ? 'Sujet' : 'Subject';
+    }
+    if (messageInput) {
+        messageInput.placeholder = currentLang === 'fr' ? 'Laissez votre message ici' : 'Leave a message here';
+    }
+    if (messageInput) {
+        messageInput.placeholder = currentLang === 'fr' ? document.getElementById('formLang').value = 'FR' : 'EN';
+    }
+
+    // Handle the typed text by showing it statically instead of animated
+    const typedTextElement = document.querySelector('.typed-text');
+    const typedOutput = document.querySelector('.typed-text-output');
+
+    if (typedTextElement && typedOutput) {
+        const frenchText = typedTextElement.getAttribute('data-fr');
+        const englishText = typedTextElement.getAttribute('data-en');
+
+        const newText = currentLang === 'fr' ? frenchText : englishText;
+
+        // Stop any existing typed animation
+        if (window.typedInstance) {
+            window.typedInstance.destroy();
+            window.typedInstance = null;
+        }
+
+        // Update the hidden text element that Typed.js reads from
+        typedTextElement.textContent = newText;
+
+        // Restart Typed.js with the new language text
+        if (newText) {
+            window.typedInstance = new Typed('.typed-text-output', {
+                strings: newText.split(', '),
+                typeSpeed: 100,
+                backSpeed: 20,
+                smartBackspace: false,
+                loop: true
             });
-            
-            // Handle "Yes" button click in modal
-            yesBtn.addEventListener('click', function() {
-                // Close modal first
-                modal.modal('hide');
-                
-                // Then scroll to contact form after modal is hidden
-                setTimeout(() => {
-                    const contactSection = document.getElementById('contact');
-                    if (contactSection) {
-                        contactSection.scrollIntoView({ 
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
-                    }
-                }, 300); // Small delay to ensure modal is closed
-            });
+        }
+    }
+
+    // Update the toggle button text
+    const langText = document.getElementById('langText');
+    if (langText) {
+        langText.textContent = currentLang === 'en' ? 'Français' : 'English';
+    }
+
+    // Update page title
+    document.title = currentLang === 'en' ?
+        'Manon Dupuis - English Resume' :
+        'Manon Dupuis - CV Français';
+
+    // Update HTML lang attribute
+    document.documentElement.lang = currentLang;
+
+    // Force isotope layout recalculation after language change
+    setTimeout(function() {
+        if (window.jQuery && $('.experience-container').data('isotope')) {
+            $('.experience-container').isotope('layout');
+        }
+        if (window.jQuery && $('.education-container').data('isotope')) {
+            $('.education-container').isotope('layout');
+        }
+        if (window.jQuery && $('.community-container').data('isotope')) {
+            $('.community-container').isotope('layout');
+        }
+    }, 100);
+
+    // At the end of toggleLanguage(), update localStorage
+    localStorage.setItem('cv_lang', currentLang);
+}
+
+// Add click functionality to service items
+document.addEventListener('DOMContentLoaded', function() {
+    const serviceItems = document.querySelectorAll('.clickable-service');
+    const modal = $('#serviceInterestModal'); // Using jQuery for Bootstrap 4
+    const yesBtn = document.getElementById('modalYesBtn');
+
+    serviceItems.forEach(item => {
+        item.addEventListener('click', function() {
+            // Show the modal instead of directly scrolling
+            modal.modal('show');
         });
-            
-        // Save form data before submission (backup)
-        document.getElementById('contactForm').addEventListener('submit', function() {
-            const formData = {
-                name: document.getElementById('name').value,
-                email: document.getElementById('email').value,
-                subject: document.getElementById('subject').value,
-                message: document.getElementById('message').value,
-                lang: currentLang
-            };
-            // Store in localStorage as backup
-            localStorage.setItem('contact_name', formData.name);
-            localStorage.setItem('contact_email', formData.email);
-            localStorage.setItem('contact_subject', formData.subject);
-            localStorage.setItem('contact_message', formData.message);
-            localStorage.setItem('cv_lang', formData.lang);
+
+        // Add hover effects
+        item.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-5px)';
+            this.style.transition = 'transform 0.3s ease';
         });
-        
-        // Download Resume functionality
-        document.getElementById('downloadResume').addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            // Set the appropriate file path based on language
-            let filePath;
-            let fileName;
-            
-            if (currentLang === 'fr') {
-                filePath = 'cv/Manon_Dupuis_CV_FR.pdf';
-                fileName = 'Manon_Dupuis_CV_FR.pdf';
-            } else {
-                filePath = 'cv/Manon_Dupuis_Resume_EN.pdf';
-                fileName = 'Manon_Dupuis_Resume_EN.pdf';
+
+        item.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0)';
+        });
+    });
+
+    // Handle "Yes" button click in modal
+    yesBtn.addEventListener('click', function() {
+        // Close modal first
+        modal.modal('hide');
+
+        // Then scroll to contact form after modal is hidden
+        setTimeout(() => {
+            const contactSection = document.getElementById('contact');
+            if (contactSection) {
+                contactSection.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
             }
-            
-            // Create a temporary anchor element to trigger download
-            const downloadLink = document.createElement('a');
-            downloadLink.href = filePath;
-            downloadLink.download = fileName;
-            downloadLink.style.display = 'none';
-            
-            // Add to DOM, click, and remove
-            document.body.appendChild(downloadLink);
-            downloadLink.click();
-            document.body.removeChild(downloadLink);
-        });
-    
-    (function ($) {
+        }, 300); // Small delay to ensure modal is closed
+    });
+});
+
+// Save form data before submission (backup)
+document.getElementById('contactForm').addEventListener('submit', function() {
+    const formData = {
+        name: document.getElementById('name').value,
+        email: document.getElementById('email').value,
+        subject: document.getElementById('subject').value,
+        message: document.getElementById('message').value,
+        lang: currentLang
+    };
+    // Store in localStorage as backup
+    localStorage.setItem('contact_name', formData.name);
+    localStorage.setItem('contact_email', formData.email);
+    localStorage.setItem('contact_subject', formData.subject);
+    localStorage.setItem('contact_message', formData.message);
+    localStorage.setItem('cv_lang', formData.lang);
+});
+
+// Download Resume functionality
+document.getElementById('downloadResume').addEventListener('click', function(e) {
+    e.preventDefault();
+
+    // Set the appropriate file path based on language
+    let filePath;
+    let fileName;
+
+    if (currentLang === 'fr') {
+        filePath = 'cv/Manon_Dupuis_CV_FR.pdf';
+        fileName = 'Manon_Dupuis_CV_FR.pdf';
+    } else {
+        filePath = 'cv/Manon_Dupuis_Resume_EN.pdf';
+        fileName = 'Manon_Dupuis_Resume_EN.pdf';
+    }
+
+    // Create a temporary anchor element to trigger download
+    const downloadLink = document.createElement('a');
+    downloadLink.href = filePath;
+    downloadLink.download = fileName;
+    downloadLink.style.display = 'none';
+
+    // Add to DOM, click, and remove
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+    document.body.removeChild(downloadLink);
+});
+
+(function ($) {
     "use strict";
 
     // Spinner
@@ -240,18 +238,15 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 1);
     };
     spinner();
-    
-    
+
     // Initiate the wowjs
     new WOW().init();
-
 
     // Facts counter
     $('[data-toggle="counter-up"]').counterUp({
         delay: 10,
         time: 2000
     });
-
 
     // Typed Initiate
     if ($('.typed-text-output').length == 1) {
@@ -265,26 +260,23 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-
     // Smooth scrolling to section
     $(".btn-scroll").on('click', function (event) {
         if (this.hash !== "") {
             event.preventDefault();
-            
+
             $('html, body').animate({
                 scrollTop: $(this.hash).offset().top - 0
             }, 1500, 'easeInOutExpo');
         }
     });
-    
-    
+
     // Skills
     $('.skill').waypoint(function () {
         $('.progress .progress-bar').each(function () {
             $(this).css("width", $(this).attr("aria-valuenow") + '%');
         });
     }, {offset: '80%'});
-
 
     // Portfolio isotope and filter
     var portfolioIsotope = $('.portfolio-container').isotope({
@@ -300,10 +292,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Community isotope and filter
     var communityIsotope;
-    
+
     // Initialize Community isotope after DOM is ready and content is loaded
     $(document).ready(function() {
-        
         // Initialize Community isotope with delay
         setTimeout(function() {
             communityIsotope = $('.community-container').isotope({
@@ -311,12 +302,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 layoutMode: 'fitRows',
                 filter: '.current'
             });
-            
+
             // Force layout recalculation
             communityIsotope.isotope('layout');
         }, 100);
     });
-    
+
     // Also reinitialize on window load to handle any content that loads after DOM ready
     $(window).on('load', function() {
         setTimeout(function() {
@@ -328,7 +319,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }, 200);
     });
-    
+
     $('#community-filters li').on('click', function () {
         $("#community-filters li").removeClass('active');
         $(this).addClass('active');
@@ -340,10 +331,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Experience isotope and filter
     var experienceIsotope;
-    
+
     // Initialize Experience isotope after DOM is ready and content is loaded
     $(document).ready(function() {
-        
         // Initialize Experience isotope
         setTimeout(function() {
             experienceIsotope = $('.experience-container').isotope({
@@ -351,12 +341,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 layoutMode: 'fitRows',
                 filter: '.current'
             });
-            
+
             // Force layout recalculation
             experienceIsotope.isotope('layout');
         }, 100);
     });
-    
+
     $('#experience-filters li').on('click', function () {
         $("#experience-filters li").removeClass('active');
         $(this).addClass('active');
@@ -366,7 +356,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-
     // Testimonials carousel
     $(".testimonial-carousel").owlCarousel({
         autoplay: true,
@@ -375,8 +364,7 @@ document.addEventListener('DOMContentLoaded', function() {
         loop: true,
         items: 1
     });
-    
-    
+
     // Back to top button
     $(window).scroll(function () {
         if ($(this).scrollTop() > 100) {
