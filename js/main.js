@@ -3,19 +3,16 @@ if (localStorage.getItem('cv_lang')) {
     currentLang = localStorage.getItem('cv_lang');
 } else {
     currentLang = 'en'; // Default to English if no language is set
+    localStorage.setItem('cv_lang', currentLang);
 }
 
 // Immediately set the initial typed-text content based on language, before Typed.js runs
+// This ensures the dactylo typed text is correct on first load
 const typedTextElement = document.querySelector('.typed-text');
 if (typedTextElement) {
     const initText = currentLang === 'fr' ? typedTextElement.getAttribute('data-fr') : typedTextElement.getAttribute('data-en');
     typedTextElement.textContent = initText;
 }
-
-// Prevent any automatic scrolling on page load
-window.addEventListener('load', function() {
-    window.scrollTo(0, 0);
-});
 
 document.addEventListener('DOMContentLoaded', function() {
     // Use restored language, not always English
@@ -27,10 +24,10 @@ document.addEventListener('DOMContentLoaded', function() {
             element.textContent = text;
         }
     });
-    // In DOMContentLoaded, set the toggle button text correctly based on restored language
+    // Set the toggle button text correctly based on restored language
     const langText = document.getElementById('langText');
     if (langText) {
-        langText.textContent = currentLang === 'en' ? 'Français' : 'English';
+    langText.textContent = currentLang === 'en' ? 'Français' : 'English';
     }
     // Force isotope layout recalculation after content is loaded
     setTimeout(function() {
@@ -74,9 +71,6 @@ function toggleLanguage() {
     if (messageInput) {
         messageInput.placeholder = currentLang === 'fr' ? 'Laissez votre message ici' : 'Leave a message here';
     }
-    if (messageInput) {
-        messageInput.placeholder = currentLang === 'fr' ? document.getElementById('formLang').value = 'FR' : 'EN';
-    }
 
     // Handle the typed text by showing it statically instead of animated
     const typedTextElement = document.querySelector('.typed-text');
@@ -112,7 +106,7 @@ function toggleLanguage() {
     // Update the toggle button text
     const langText = document.getElementById('langText');
     if (langText) {
-        langText.textContent = currentLang === 'en' ? 'Français' : 'English';
+    langText.textContent = currentLang === 'en' ? 'Français' : 'English';
     }
 
     // Update page title
@@ -121,7 +115,7 @@ function toggleLanguage() {
         'Manon Dupuis - CV Français';
 
     // Update HTML lang attribute
-    document.documentElement.lang = currentLang;
+    document.documentElement.lang = currentLang === 'fr' ? 'fr' : 'en';
 
     // Force isotope layout recalculation after language change
     setTimeout(function() {
@@ -138,6 +132,8 @@ function toggleLanguage() {
 
     // At the end of toggleLanguage(), update localStorage
     localStorage.setItem('cv_lang', currentLang);
+    // At the end of toggleLanguage(), update the formLang value
+    document.getElementById('formLang').value = currentLang;
 }
 
 // Add click functionality to service items
@@ -179,23 +175,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }, 300); // Small delay to ensure modal is closed
     });
-});
-
-// Save form data before submission (backup)
-document.getElementById('contactForm').addEventListener('submit', function() {
-    const formData = {
-        name: document.getElementById('name').value,
-        email: document.getElementById('email').value,
-        subject: document.getElementById('subject').value,
-        message: document.getElementById('message').value,
-        lang: currentLang
-    };
-    // Store in localStorage as backup
-    localStorage.setItem('contact_name', formData.name);
-    localStorage.setItem('contact_email', formData.email);
-    localStorage.setItem('contact_subject', formData.subject);
-    localStorage.setItem('contact_message', formData.message);
-    localStorage.setItem('cv_lang', formData.lang);
 });
 
 // Download Resume functionality

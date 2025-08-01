@@ -2,7 +2,6 @@
 <?php
 // Initialize variables
 $name = $email = $subject = $message = '';
-$lang = 'EN';
 $success = false;
 $error = false;
 
@@ -13,10 +12,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = htmlspecialchars(trim($_POST['email'] ?? ''));
     $subject = htmlspecialchars(trim($_POST['subject'] ?? ''));
     $message = htmlspecialchars(trim($_POST['message'] ?? ''));
-    $lang = strtoupper(trim($_POST['lang'] ?? 'EN'));
+    $lang = strtolower(trim($_POST['lang'] ?? 'en'));
 
     // Validate required fields
-    if ($name && filter_var($email, FILTER_VALIDATE_EMAIL) && $subject && $message) {
+    if ($name !== '' && filter_var($email, FILTER_VALIDATE_EMAIL) && $subject !== '' && $message !== '') {
         $success = true;
     } else {
         $error = true;
@@ -25,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 // Bilingual labels
 $labels = [
-    'FR' => [
+    'fr' => [
         'received' => '✅ Message reçu!',
         'prepared' => "Votre message a été préparé. Choisissez votre méthode d'envoi préférée:",
         'gmail' => '📬 Gmail (Web)',
@@ -45,7 +44,7 @@ $labels = [
         'copied_msg' => '📋 Message copié dans le presse-papier!',
         'copied_email' => '📧 Email copié: ',
     ],
-    'EN' => [
+    'en' => [
         'received' => '✅ Message received!',
         'prepared' => 'Your message has been prepared. Choose your preferred sending method:',
         'gmail' => '📬 Gmail (Web)',
@@ -67,18 +66,14 @@ $labels = [
     ]
 ];
 
-// Default to EN if unsupported
-if (!isset($labels[$lang])) {
-    $lang = 'EN';
-}
 $l = $labels[$lang];
 
 // Format message
-$formatted_message = $lang === 'FR'
+$formatted_message = $lang === 'fr'
     ? "Nom: $name\nCourriel: $email\nSujet: $subject\n\nMessage:\n$message\n\n"
     : "Name: $name\nEmail: $email\nSubject: $subject\n\nMessage:\n$message\n\n";
 ?>
-<html lang="<?php echo strtolower($lang); ?>">
+<html lang="<?php echo $lang; ?>">
 <head>
     <meta charset="utf-8">
     <title>Contact - Manon Dupuis</title>
@@ -133,8 +128,13 @@ $formatted_message = $lang === 'FR'
                             </div>
                         <?php elseif ($error): ?>
                             <div class="alert alert-danger">
-                                <h4><?php echo $l['no_data']; ?></h4>
-                                <p><?php echo $l['fill_again']; ?></p>
+                                <?php if ($lang === 'fr'): ?>
+                                    <h4><?php echo $labels['fr']['no_data']; ?></h4>
+                                    <p><?php echo $labels['fr']['fill_again']; ?></p>
+                                <?php else: ?>
+                                    <h4><?php echo $labels['en']['no_data']; ?></h4>
+                                    <p><?php echo $labels['en']['fill_again']; ?></p>
+                                <?php endif; ?>
                             </div>
                         <?php endif; ?>
                         <div class="mt-4">

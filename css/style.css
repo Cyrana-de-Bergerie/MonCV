@@ -307,3 +307,7 @@ section {
 .testimonial-carousel .owl-dot.active {
   background: var(--primary);
 }
+
+.no-left-padding {
+    padding-left: 0.5rem !important;
+}

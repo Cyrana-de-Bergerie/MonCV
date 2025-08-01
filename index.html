@@ -20,7 +20,6 @@
 
         <!-- Template Stylesheet -->
         <link href="css/style.css" rel="stylesheet">
-        
     </head>
 
     <body>
@@ -114,7 +113,7 @@
                                 </div>
                             </div>
                             <div class="col-md-4 col-lg-6 col-xl-4">
-                                <div class="d-flex bg-secondary p-4">
+                                <div class="d-flex bg-secondary p-4 no-left-padding">
                                     <h1 class="flex-shrink-0 display-5 text-primary mb-0" data-toggle="counter-up">10</h1>
                                     <div class="ps-3">
                                         <h5 class="mb-0" data-en="Programmer Analyst Experience" data-fr="Analyste programmeure"></h5>
@@ -897,12 +896,12 @@
                             data-en="Please fill out the form below to get in touch with me. I'll get back to you as soon as possible." 
                             data-fr="Veuillez remplir le formulaire ci-dessous pour me contacter. Je vous répondrai dès que possible.">
                         </p>
-                        <form action="contact.php" method="post" id="contactForm">
+                        <form id="contact-form">
                             <input type="hidden" name="lang" id="formLang" value="EN">
                             <div class="row g-3">
                                 <div class="col-md-6">
                                     <div class="form-floating position-relative mb-1">
-                                        <input type="text" class="form-control border-0 bg-secondary" id="name" name="name" required maxlength="35" pattern="[A-Za-zÀ-ÿ\s\-']+">
+                                        <input type="text" class="form-control border-0 bg-secondary" id="name" name="name" maxlength="35">
                                         <label for="name" id="name-label" data-en="Your Name" data-fr="Votre nom"></label>
                                     </div>
                                     <div id="name-tip" 
@@ -913,7 +912,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-floating">
-                                        <input type="email" class="form-control border-0 bg-secondary" id="email" name="email" required maxlength="100" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}">
+                                        <input type="email" class="form-control border-0 bg-secondary" id="email" name="email" maxlength="100">
                                         <label for="email" data-en="Your Email" data-fr="Votre courriel"></label>
                                     </div>
                                     <div id="email-tip" 
@@ -924,7 +923,7 @@
                                 </div>
                                 <div class="col-12">
                                     <div class="form-floating">
-                                        <input type="text" class="form-control border-0 bg-secondary" id="subject" name="subject" required maxlength="100">
+                                        <input type="text" class="form-control border-0 bg-secondary" id="subject" name="subject" maxlength="100">
                                         <label for="subject" data-en="Subject" data-fr="Sujet"></label>
                                     </div>
                                     <div id="subject-tip" 
@@ -935,7 +934,7 @@
                                 </div>
                                 <div class="col-12">
                                     <div class="form-floating">
-                                        <textarea class="form-control border-0 bg-secondary" id="message" name="message" style="height: 200px" required maxlength="500"></textarea>
+                                        <textarea class="form-control border-0 bg-secondary" id="message" name="message" style="height: 200px" maxlength="500"></textarea>
                                         <label for="message" data-en="Message" data-fr="Message"></label>
                                     </div>
                                     <div id="message-tip"
@@ -960,7 +959,7 @@
                                 <a class="btn btn-dark btn-square mx-1" href="https://www.linkedin.com/in/manon-dupuis-1b9452296/"><i class="fab fa-linkedin-in"></i></a>                        
                             </div>						
                             <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
-                            <p class="m-0">&copy; <span data-en="All Rights Reserved. Developed by Manon Dupuis using an " data-fr="Tous droits réservés. Développé par Manon Dupuis à partir d'un gabarit "></span><a href="https://htmlcodex.com">HTML Codex</a><span data-en=" generated template, Bootstrap, JavaScript and PHP for the contact form." data-fr=" généré, Bootstrap, JavaScript et PHP pour le formulaire de contact."></span></p>
+                            <p class="m-0">&copy; <span data-en="All rights reserved. Developed by Manon Dupuis using a generated HTML Codex template, as well as HTML, CSS, Bootstrap, and JavaScript." data-fr="Tous droits réservés. Développé par Manon Dupuis à partir d'un gabarit HTML Codex généré ainsi que HTML, CSS, Bootstrap et JavaScript."></span></p>
                         </div>
                     </section>
                     <!-- Footer End -->
@@ -1016,6 +1015,8 @@
         <script src="lib/isotope/isotope.pkgd.min.js"></script>
         <script src="lib/lightbox/js/lightbox.min.js"></script>
 
+        <script src="js/contact.js"></script>
+
         <!-- Template Javascript -->
         <script src="js/main.js"></script>
         <script>
@@ -1058,9 +1059,6 @@
                 }
             }
         }
-        document.addEventListener('DOMContentLoaded', updateNameLabelAndTip);
-        // If you have a language toggle, call updateNameLabelAndTip() after language changes
         </script>
-        
     </body>
 </html>
