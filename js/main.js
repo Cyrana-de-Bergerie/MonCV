@@ -285,6 +285,14 @@ document.getElementById('downloadResume').addEventListener('click', function(e) 
             // Force layout recalculation
             communityIsotope.isotope('layout');
         }, 100);
+        
+        // Set the tabs in the experience section
+        $(document).ready(function () {
+            $('#previousTabs a:first').tab('show');
+        });
+        $(document).ready(function () {
+            $('#preEquifaxTabs a:first').tab('show');
+        });
     });
 
     // Also reinitialize on window load to handle any content that loads after DOM ready
