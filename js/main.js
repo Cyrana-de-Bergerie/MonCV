@@ -2,7 +2,7 @@
 if (localStorage.getItem('cv_lang')) {
     currentLang = localStorage.getItem('cv_lang');
 } else {
-    currentLang = 'en'; // Default to English if no language is set
+    currentLang = 'fr'; // Default to French if no language is set
     localStorage.setItem('cv_lang', currentLang);
 }
 
