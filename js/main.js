@@ -334,6 +334,24 @@ document.getElementById('downloadResume').addEventListener('click', function(e) 
         }, 100);
     });
 
+    // Écouteur pour les onglets de la section "Emploi" précédente
+    $('#previousTabs a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+        setTimeout(function() {
+            if (window.jQuery && $('.experience-container').data('isotope')) {
+                $('.experience-container').isotope('layout');
+            }
+        }, 100);
+    });
+
+    // Écouteur pour les onglets de la section "Pré-Equifax"
+    $('#preEquifaxTabs a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+        setTimeout(function() {
+            if (window.jQuery && $('.experience-container').data('isotope')) {
+                $('.experience-container').isotope('layout');
+            }
+        }, 100);
+    });
+
     $('#experience-filters li').on('click', function () {
         $("#experience-filters li").removeClass('active');
         $(this).addClass('active');
